@@ -11,6 +11,6 @@ ARG PROJECT
 EXPOSE 8080
 
 RUN mkdir /app
-COPY --from=build /home/gradle/src/${PROJECT}/build/libs/*fat*.jar /app/application.jar
+COPY --from=build /home/gradle/src/${PROJECT}/build/libs/${PROJECT}-fat-0.0.jar /app/application.jar
 
 ENTRYPOINT ["java", "-XX:+UnlockExperimentalVMOptions", "-XX:+UseCGroupMemoryLimitForHeap", "-Djava.security.egd=file:/dev/./urandom","-jar","/app/application.jar"]
