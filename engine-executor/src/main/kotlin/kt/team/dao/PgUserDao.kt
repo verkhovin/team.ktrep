@@ -1,6 +1,7 @@
 package kt.team.dao
 
 import io.r2dbc.postgresql.codec.Json
+import io.r2dbc.spi.ConnectionFactory
 import kotlinx.coroutines.flow.flatMapConcat
 import kotlinx.coroutines.reactive.asFlow
 import kotlinx.coroutines.reactor.asFlux
@@ -8,21 +9,21 @@ import kt.team.entity.User
 import reactor.core.publisher.Mono
 import java.util.UUID
 
-class PgUserDao {
+class PgUserDao(private val connectionFactory: ConnectionFactory) : UserDao {
 
-     suspend fun getUsers() = Mono.from(connectionFactory
+    @Suppress("EXPERIMENTAL_API_USAGE")
+    override suspend fun getUsers() = Mono.from(connectionFactory
         .create())
         .map { conn ->
             conn.createStatement("select * from NS_USER")
                 .execute()
                 .asFlow().flatMapConcat {
-                    it.map {
-                         row, _ ->
-                            User(
-                                id = (row["id"] as UUID).toString(),
-                                sex = row["gender"] as String,
-                                contents = emptyList()
-                            )
+                    it.map { row, _ ->
+                        User(
+                            id = (row["id"] as UUID).toString(),
+                            sex = row["gender"] as String,
+                            contents = emptyList()
+                        )
                     }.asFlow()
                 }
                 .asFlux()
@@ -32,7 +33,7 @@ class PgUserDao {
         .asFlow()
 
 
-    suspend fun updateUserContentCorr(user: User) =
+    override suspend fun updateUserContentCorr(user: User) =
         Mono.from(connectionFactory
             .create())
             .map { conn ->
