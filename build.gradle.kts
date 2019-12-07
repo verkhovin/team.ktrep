@@ -16,7 +16,7 @@ allprojects {
 }
 
 dependencies {
-    // Make the root project archives configuration depend on every subproject
+    // Make the root project archives kt.team.api.configuration depend on every subproject
     subprojects.forEach {
         archives(it)
     }
