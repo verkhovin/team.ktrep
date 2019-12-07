@@ -1,5 +1,5 @@
 openapi: "3.0.0"
-info: 
+info:
   title: NSOA
   version: "1.0"
 paths:
@@ -9,9 +9,9 @@ paths:
         Publish new content.
       requestBody:
         required: true
-        content: 
+        content:
           application/json:
-            schema: 
+            schema:
               $ref: '#/components/schemas/NewItem'
       responses:
         '200':
@@ -20,7 +20,7 @@ paths:
     post:
       description: |
         Create user
-      requestBody: 
+      requestBody:
         required: true
         content:
           application/json:
@@ -29,25 +29,38 @@ paths:
       responses:
         '200':
           description: Created
-  /user/product/{productName}:
+  /user/{userId}/product/{productName}:
     post:
       parameters:
-      - name: productName
-        in: path
-        required: true
-        schema:
-          type: string
-  /user/product/{tagName}:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: productName
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: product added
+  /user/{userId}/product/{tagName}:
     post:
       parameters:
-      - name: tagName
-        in: path
-        required: true
-        schena:
-          type: string
-
-
-
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: tagName
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: tag added
 components:
   schemas:
     User:
@@ -72,7 +85,7 @@ components:
           type: array
           items:
             type: string
-              
+
     NewItem:
       type: object
       properties:

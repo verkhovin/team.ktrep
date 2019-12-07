@@ -7,15 +7,18 @@ import io.ktor.response.respond
 import io.ktor.routing.Routing
 import io.ktor.routing.get
 import io.ktor.routing.post
+import kt.team.api.persist.service.ContentService
+import org.koin.ktor.ext.inject
 
 fun Routing.configureInputApi() {
+    val contentService by inject<ContentService>()
     post("input-api") {
-        val data = call.receive<Data>()
-        call.respond(HttpStatusCode.OK, data)
+        TODO()
     }
     get("/version") {
         call.respond("v 0.0")
     }
+    post("/content") {
+        call.respond(contentService.saveContent(call.receive()))
+    }
 }
-
-data class Data(val text: String, val number: Int)

@@ -10,5 +10,5 @@ object ContentTable : Table() {
     val text = text("text")
     val imageUrl = varchar("image_url", 500)
     val videoUrl = varchar("video_url", 500)
-    val articleId = uuid("article_id")
+    val articleId = uuid("article_id").nullable()
 }
