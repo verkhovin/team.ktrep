@@ -23,11 +23,11 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.3.61")
 
     implementation("io.ktor:ktor-server-netty:$ktorVersion")
-    implementation("io.ktor:ktor-gson:$ktorVersion")
-
     implementation("ch.qos.logback:logback-classic:1.2.3")
+
+    implementation ("io.ktor:ktor-jackson:$ktorVersion")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.10.1")
-    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.10.1")
+    implementation("com.fasterxml.jackson.datatype:jackson-datatype-joda:2.10.1")
 
 
     implementation("org.koin:koin-ktor:$koinVersion")

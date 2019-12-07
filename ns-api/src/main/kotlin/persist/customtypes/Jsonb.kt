@@ -1,7 +1,8 @@
 package persist.customtypes
 
+import com.fasterxml.jackson.core.type.TypeReference
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
+import com.fasterxml.jackson.datatype.joda.JodaModule
 import org.jetbrains.exposed.sql.Column
 import org.jetbrains.exposed.sql.ColumnType
 import org.jetbrains.exposed.sql.Table
@@ -13,7 +14,7 @@ fun <T : Any> Table.jsonb(name: String, klass: Class<T>): Column<T> = registerCo
 
 private class Json<out T : Any>(private val klass: Class<T>) : ColumnType() {
 
-    val jsonMapper: ObjectMapper = ObjectMapper().registerModule(JavaTimeModule())
+    val jsonMapper: ObjectMapper = ObjectMapper().registerModule(JodaModule())
 
     override fun sqlType() = "jsonb"
 

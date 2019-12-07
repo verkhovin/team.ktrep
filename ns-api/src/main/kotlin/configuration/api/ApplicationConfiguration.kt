@@ -6,7 +6,7 @@ import org.koin.ktor.ext.get
 
 fun Application.configureApi() {
     routing {
-        configureFrontApi(get())
+        configureFrontApi()
         configureInputApi()
     }
 }
