@@ -1,0 +1,89 @@
+openapi: "3.0.0"
+info: 
+  title: NSOA
+  version: "1.0"
+paths:
+  /content:
+    post:
+      description: |
+        Publish new content.
+      requestBody:
+        required: true
+        content: 
+          application/json:
+            schema: 
+              $ref: '#/components/schemas/NewItem'
+      responses:
+        '200':
+          description: Success response
+  /user:
+    post:
+      description: |
+        Create user
+      requestBody: 
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '200':
+          description: Created
+    put:
+      description: |
+        update user
+      requestBody: 
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '200':
+          description: Updated
+components:
+  schemas:
+    User:
+      properties:
+        id:
+          type: string
+        lastLogin:
+          type: string
+          format: date
+        birthDate:
+          type: string
+          format: date
+        sex:
+          type: string
+        location:
+          type: string
+        products:
+          type: array
+          items:
+            type: string
+        tags:
+          type: array
+          items:
+            type: string
+              
+    NewItem:
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/ContentType'
+        body:
+          $ref: '#/components/schemas/ItemBody'
+    ItemBody:
+      type: object
+      properties:
+        text:
+          type: string
+        image:
+          type: string
+        video:
+          type: string
+        article:
+          type: string
+    ContentType:
+      type: string
+      enum: [alert, warning, content]
