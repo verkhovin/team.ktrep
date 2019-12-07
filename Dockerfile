@@ -1,10 +1,9 @@
-FROM gradle:4.7.0-jdk8-alpine AS build
+FROM gradle:5.2.1-jdk8-alpine AS build
 ARG PROJECT
 
 COPY . /home/gradle/src
-CMD chmod -R 777 .
 WORKDIR /home/gradle/src
-RUN ./gradlew  ${PROJECT}:build --no-daemon
+RUN gradle ${PROJECT}:build --no-daemon
 
 FROM openjdk:8-jre-slim
 ARG PROJECT
