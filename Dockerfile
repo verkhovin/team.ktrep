@@ -1,9 +1,7 @@
-FROM gradle:5.2.1-jdk8-alpine AS build
+FROM anapsix/alpine-java:jdk8 AS build
 ARG PROJECT
 
-COPY . /home/gradle/src
-CMD chmod -R 777 /home/gradle/src
-CMD chmod +x gradlew
+COPY --chown=gradle:gradle . /home/gradle/src
 WORKDIR /home/gradle/src
 RUN ./gradlew ${PROJECT}:build --no-daemon
 
