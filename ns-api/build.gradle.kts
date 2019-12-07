@@ -1,6 +1,6 @@
 plugins {
-    kotlin("jvm") version "1.3.61"
-    kotlin("kapt") version "1.3.61"
+    kotlin("jvm")
+    kotlin("kapt")
 }
 
 apply(plugin = "org.jetbrains.kotlin.kapt")
