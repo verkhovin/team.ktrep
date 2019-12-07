@@ -2,7 +2,7 @@ FROM gradle:4.7.0-jdk8-alpine AS build
 ARG PROJECT
 
 COPY . /home/gradle/src
-CMD chmod -R 777 /home/gradle/src
+CMD chmod -R 777 .
 WORKDIR /home/gradle/src
 RUN ./gradlew  ${PROJECT}:build --no-daemon
 
