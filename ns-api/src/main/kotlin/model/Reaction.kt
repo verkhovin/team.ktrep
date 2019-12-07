@@ -1,7 +1,7 @@
 package model
 
 data class Reaction(
-    val action: Action,
+    val action: String,
     val isBookmarked: Boolean
 )
 

@@ -2,26 +2,28 @@ package persist.service
 
 import model.Article
 import org.jetbrains.exposed.sql.ResultRow
-import org.jetbrains.exposed.sql.selectAll
+import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.transactions.transaction
+import persist.model.ArticleTable
 import java.util.UUID
-import persist.model.Article as ArticleEntity
 
 class ArticleService {
-    suspend fun getAllArticles(): List<Article> = transaction {
-       val result =  ArticleEntity.selectAll().map { toArticle(it) }
+
+    fun getArticle(id: UUID) = transaction {
+        val result = ArticleTable.select {
+            (ArticleTable.id eq id)
+        }.mapNotNull { toArticle(it) }
+            .singleOrNull()
+            ?: throw RuntimeException("Article with id = $id not found!")
         commit()
         result
     }
 
-    suspend fun getArticle(id: UUID) {}
-    suspend fun save(article: Article) {}
-    suspend fun update(article: Article) {}
+    fun save(article: Article) {}
 
-    private fun toArticle(row: ResultRow): Article =
-        Article(
-            id = row[ArticleEntity.id].toString(),
-            created = row[ArticleEntity.created],
-            content = row[ArticleEntity.content]
-        )
+    private fun toArticle(row: ResultRow) = Article(
+        id = row[ArticleTable.id].toString(),
+        created = row[ArticleTable.created],
+        content = row[ArticleTable.content]
+    )
 }

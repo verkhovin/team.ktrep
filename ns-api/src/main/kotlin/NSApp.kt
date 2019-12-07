@@ -7,6 +7,5 @@ fun main(args: Array<String>) {
         environmentProperties()
         modules(nsApiModule)
     }
-
     NSApi().start()
 }

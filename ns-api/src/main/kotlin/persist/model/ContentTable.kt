@@ -3,7 +3,7 @@ package persist.model
 import org.jetbrains.exposed.sql.Table
 import org.jetbrains.exposed.sql.datetime
 
-object Content : Table() {
+object ContentTable : Table() {
     val id = uuid("id").primaryKey().autoGenerate()
     val type = varchar("type", 20)
     val created = datetime("created")
