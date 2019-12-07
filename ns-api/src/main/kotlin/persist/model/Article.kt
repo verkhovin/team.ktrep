@@ -1,10 +1,10 @@
 package persist.model
 
 import org.jetbrains.exposed.sql.Table
-import org.jetbrains.exposed.sql.datetime
+import org.jetbrains.exposed.sql.date
 
 object Article : Table() {
     val id = uuid("id").primaryKey().autoGenerate()
-    val created = datetime("created")
+    val created = date("created")
     val content = text("content")
 }

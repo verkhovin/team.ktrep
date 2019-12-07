@@ -13,7 +13,7 @@ import java.text.DateFormat
 class NSApi : KoinComponent {
 
     fun start() = runBlocking {
-        val port = getKoin().getProperty("port", 8080)
+        val port = getKoin().getProperty("app.port", 8080)
         embeddedServer(Netty, port) {
             configureServer()
         }.start()

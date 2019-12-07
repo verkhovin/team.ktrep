@@ -1,10 +1,9 @@
 package model
 
-import java.time.LocalDateTime
+import org.joda.time.DateTime
 
 data class Article(
     val id: String,
-    val reaction: Reaction,
-    val created: LocalDateTime,
+    val created: DateTime,
     val content: String
 )

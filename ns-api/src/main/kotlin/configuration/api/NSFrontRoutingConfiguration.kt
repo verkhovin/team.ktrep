@@ -5,11 +5,14 @@ import io.ktor.http.HttpStatusCode
 import io.ktor.response.respond
 import io.ktor.routing.Routing
 import io.ktor.routing.get
-import model.Article
 import model.Item
 import model.Tile
+import org.koin.ktor.ext.inject
+import persist.service.ArticleService
 
-fun Routing.configureFrontApi() {
+fun Routing.configureFrontApi(articleService: ArticleService) {
+//    val articleService = get
+
     get("/content/preview/{userId}") {
         //TODO: get data from database
         val response = emptyList<Tile>()
@@ -23,8 +26,7 @@ fun Routing.configureFrontApi() {
     }
 
     get("/content/article/{articleId}") {
-        //TODO: get data from database
-        val response = emptyList<Article>()
+        val response = articleService.getAllArticles()
         call.respond(HttpStatusCode.OK, response)
     }
 }
