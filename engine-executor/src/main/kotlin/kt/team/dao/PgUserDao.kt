@@ -1,6 +1,7 @@
 package kt.team.dao
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import io.r2dbc.postgresql.PostgresqlConnectionFactory
 import io.r2dbc.postgresql.codec.Json
 import io.r2dbc.spi.ConnectionFactory
 import kotlinx.coroutines.flow.flatMapConcat
@@ -16,21 +17,21 @@ private val objectMapper = ObjectMapper()
 class PgUserDao(private val connectionFactory: ConnectionFactory) : UserDao {
 
     @Suppress("EXPERIMENTAL_API_USAGE")
-    override suspend fun getUsers() = Mono.from(connectionFactory
+    override suspend fun getUsers() =
+        Mono.from((connectionFactory as PostgresqlConnectionFactory)
         .create())
         .map { conn ->
             conn.createStatement("select * from NS_USER")
                 .execute()
-                .asFlow().flatMapConcat {
+                .flatMap {
                     it.map { row, _ ->
                         User(
                             id = row["id"] as UUID,
                             sex = row["gender"] as String,
                             tags = row.parseJsonSafetely("tags", emptyList())
                         )
-                    }.asFlow()
+                    }
                 }
-                .asFlux()
                 .doFinally { conn.close() }
         }
         .flatMapMany { it }
@@ -38,14 +39,13 @@ class PgUserDao(private val connectionFactory: ConnectionFactory) : UserDao {
 
 
     override suspend fun updateUserContentCorr(user: User) =
-        Mono.from(connectionFactory
+        Mono.from((connectionFactory as PostgresqlConnectionFactory)
             .create())
             .map { conn ->
                 conn.createStatement("update NS_USER set CONTENT = $1 where ID = $2")
                     .bind("$1", Json.of(objectMapper.writeValueAsString(user.contents)))
                     .bind("$2", user.id)
                     .execute()
-                    .asFlow().asFlux()
                     .doFinally { conn.close() }
             }
             .flatMapMany { it }

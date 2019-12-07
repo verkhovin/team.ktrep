@@ -12,6 +12,7 @@ version = "0.1"
 
 dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+    implementation("io.github.microutils:kotlin-logging:1.4.9")
     implementation("org.koin:koin-ktor:2.0.1")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.2")
     implementation("io.r2dbc:r2dbc-postgresql:0.8.0.RELEASE")
