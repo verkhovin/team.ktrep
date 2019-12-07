@@ -1,8 +1,7 @@
-FROM gradle:4.7.0-jdk8-alpine AS build
+FROM gradle:5.2.1-jdk8-alpine AS build
 ARG PROJECT
 
-COPY . /home/gradle/src
-RUN chown -R gradle:gradle /home/gradle/
+COPY --chown=gradle:gradle . /home/gradle/src
 WORKDIR /home/gradle/src
 RUN ./gradlew ${PROJECT}:build --no-daemon
 
