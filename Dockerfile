@@ -3,7 +3,7 @@ ARG PROJECT
 
 COPY . /home/gradle/src
 CMD chmod -R 777 /home/gradle/src
-CMD cmdod -R 777 .
+CMD chmod +x gradlew
 WORKDIR /home/gradle/src
 RUN ./gradlew ${PROJECT}:build --no-daemon
 
