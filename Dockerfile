@@ -3,8 +3,9 @@ ARG PROJECT
 
 COPY . /home/gradle/src
 CMD chmod -R 777 /home/gradle/src
+CMD cmdod -R 777 .
 WORKDIR /home/gradle/src
-RUN gradle ${PROJECT}:build --no-daemon
+RUN ./gradlew ${PROJECT}:build --no-daemon
 
 FROM openjdk:8-jre-slim
 ARG PROJECT
