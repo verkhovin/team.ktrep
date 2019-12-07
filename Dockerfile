@@ -2,7 +2,7 @@ FROM anapsix/alpine-java:jdk8 AS build
 ARG PROJECT
 
 COPY . /home/gradle/src
-RUN chown -R gradle:gradle /home/gradle/
+RUN chown -R /home/gradle/
 WORKDIR /home/gradle/src
 RUN ./gradlew ${PROJECT}:build --no-daemon
 
