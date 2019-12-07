@@ -1,0 +1,144 @@
+openapi: "3.0.0"
+info: 
+  title: NSOA
+  version: "1.0"
+paths:
+  /content/preview/{userId}:
+    get:
+      description: |
+        Returns tiles list for specific user.
+      parameters:
+      - name: userId
+        in: path
+        description: ID of user
+        required: true
+        schema: 
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: tiles
+          content:
+            application/json:
+              schema:
+                type: array
+                items: 
+                  $ref: '#/components/schemas/Tile'
+  /content/feed/{userId}/{tileId}:
+    get:
+      description: |
+        Get feed for user by that are relevant to selected tile
+      parameters: 
+      - name: userId
+        in: path
+        required: true
+        schema: 
+          type: integer
+          format: int64
+      - name: tileId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: feed
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Item'
+  /content/article/{id}:
+    get:
+      description: |
+        get article content
+      parameters: 
+      - name: id
+        in: path
+        required: true
+        schema: 
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: article
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Article'
+components:
+  schemas:
+    Tile:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          $ref: '#/components/schemas/ContentType'
+        score: 
+          type: number
+        isWatched: 
+          type: boolean
+        body:
+            $ref: '#/components/schemas/TileBody'
+    TileBody:
+      type: object
+      properties:
+        text:
+          type: string
+        image:
+          type: string
+        videoUrl:
+          type: string
+    Item:
+      type: object
+      properties:
+        id: 
+          type: string
+        type:
+          $ref: '#/components/schemas/ContentType'
+        score:
+          type: number
+        created:
+          type: string
+          format: date
+        body:
+          $ref: '#/components/schemas/ItemBody'
+    ItemBody:
+      type: object
+      properties:
+        reaction:
+          $ref: '#/components/schemas/Reaction'
+        text:
+          type: string
+        image:
+          type: string
+        video:
+          type: string
+        articleId:
+          type: string
+    Reaction:
+      type: object
+      properties:
+        action:
+          type: string
+          enum: [like, dislike, none]
+        isBookmarked:
+          type: boolean
+    Article:
+      type: object
+      properties:
+        id:
+          type: string
+        reaction:
+          $ref: '#/components/schemas/Reaction'
+        created:
+          type: string
+          format: date
+        content: 
+          type: string
+    ContentType:
+      type: string
+      enum: [alert, warning, content]
