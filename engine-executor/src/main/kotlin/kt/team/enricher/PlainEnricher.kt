@@ -1,20 +1,22 @@
 package kt.team.enricher
 
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.count
 import kotlinx.coroutines.flow.toList
-import kt.team.dao.PgContentDao
-import kt.team.dao.PgUserDao
+import kt.team.dao.ContentDao
+import kt.team.dao.UserDao
 import kt.team.entity.Content
 import kt.team.entity.User
 import kt.team.entity.UserContent
 
 class PlainEnricher(
-    private val userDao: PgUserDao,
-    private val containerDao: PgContentDao
+    private val userDao: UserDao,
+    private val containerDao: ContentDao
 ) : Enricher {
 
+    @ExperimentalCoroutinesApi
     override suspend fun enrich() {
         coroutineScope {
             val users = async { userDao.getUsers().toList() }
