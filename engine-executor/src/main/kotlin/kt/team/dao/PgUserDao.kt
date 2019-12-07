@@ -1,13 +1,17 @@
 package kt.team.dao
 
+import com.fasterxml.jackson.databind.ObjectMapper
 import io.r2dbc.postgresql.codec.Json
 import io.r2dbc.spi.ConnectionFactory
 import kotlinx.coroutines.flow.flatMapConcat
 import kotlinx.coroutines.reactive.asFlow
 import kotlinx.coroutines.reactor.asFlux
+import kt.team.dao.extention.parseJsonSafetely
 import kt.team.entity.User
 import reactor.core.publisher.Mono
 import java.util.UUID
+
+private val objectMapper = ObjectMapper()
 
 class PgUserDao(private val connectionFactory: ConnectionFactory) : UserDao {
 
@@ -20,9 +24,9 @@ class PgUserDao(private val connectionFactory: ConnectionFactory) : UserDao {
                 .asFlow().flatMapConcat {
                     it.map { row, _ ->
                         User(
-                            id = (row["id"] as UUID).toString(),
+                            id = row["id"] as UUID,
                             sex = row["gender"] as String,
-                            contents = emptyList()
+                            tags = row.parseJsonSafetely("tags", emptyList())
                         )
                     }.asFlow()
                 }
@@ -38,8 +42,8 @@ class PgUserDao(private val connectionFactory: ConnectionFactory) : UserDao {
             .create())
             .map { conn ->
                 conn.createStatement("update NS_USER set CONTENT = $1 where ID = $2")
-                    .bind("$1", Json.of("{\"hello\": \"world\"}"))
-                    .bind("$2", UUID.fromString(user.id))
+                    .bind("$1", Json.of(objectMapper.writeValueAsString(user.contents)))
+                    .bind("$2", user.id)
                     .execute()
                     .asFlow().asFlux()
                     .doFinally { conn.close() }

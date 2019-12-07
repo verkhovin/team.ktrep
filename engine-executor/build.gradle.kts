@@ -11,13 +11,14 @@ group = "kt.team"
 version = "0.1"
 
 dependencies {
-    implementation ("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-    implementation ("org.koin:koin-ktor:2.0.1")
-    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.2")
-    implementation ("io.r2dbc:r2dbc-postgresql:0.8.0.RELEASE")
-    implementation ("io.r2dbc:r2dbc-pool:0.8.0.RELEASE")
-    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-reactor:1.3.2")
-
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+    implementation("org.koin:koin-ktor:2.0.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.2")
+    implementation("io.r2dbc:r2dbc-postgresql:0.8.0.RELEASE")
+    implementation("io.r2dbc:r2dbc-pool:0.8.0.RELEASE")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor:1.3.2")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.10.1")
+    implementation(project(":engine-dsl"))
 }
 
 tasks {

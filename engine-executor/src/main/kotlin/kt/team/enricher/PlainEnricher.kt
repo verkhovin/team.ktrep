@@ -7,6 +7,7 @@ import kotlinx.coroutines.flow.count
 import kotlinx.coroutines.flow.toList
 import kt.team.dao.ContentDao
 import kt.team.dao.UserDao
+import kt.team.enricher.calculator.calcImportant
 import kt.team.entity.Content
 import kt.team.entity.User
 import kt.team.entity.UserContent
@@ -28,7 +29,7 @@ class PlainEnricher(
                             it.contents = contentList.map {
                                 UserContent(
                                     user.id,
-                                    score = calculateContentValue(user, it)
+                                    score = user.calcImportant(it)
                                 )
                             }
                         }
@@ -36,12 +37,7 @@ class PlainEnricher(
                 }
             }.forEach{
                 it.await()
-                println("Save")
             }
         }
-    }
-
-    private fun calculateContentValue(user: User, content: Content): Double {
-        return 0.1
     }
 }
