@@ -29,18 +29,25 @@ paths:
       responses:
         '200':
           description: Created
-    put:
-      description: |
-        update user
-      requestBody: 
+  /user/product/{productName}:
+    post:
+      parameters:
+      - name: productName
+        in: path
         required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/User'
-      responses:
-        '200':
-          description: Updated
+        schema:
+          type: string
+  /user/product/{tagName}:
+    post:
+      parameters:
+      - name: tagName
+        in: path
+        required: true
+        schena:
+          type: string
+
+
+
 components:
   schemas:
     User:

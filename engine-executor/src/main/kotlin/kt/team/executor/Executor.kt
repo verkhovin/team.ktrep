@@ -1,7 +1,6 @@
 package kt.team.executor
 
 import kotlinx.coroutines.delay
-import kt.team.enricher.Enricher
 import kt.team.enricher.PlainEnricher
 import org.koin.core.KoinComponent
 import org.koin.core.inject
