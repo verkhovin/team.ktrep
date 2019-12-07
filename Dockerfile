@@ -1,4 +1,4 @@
-FROM anapsix/alpine-java:jdk8 AS build
+FROM gradle:4.7.0-jdk8-alpine AS build
 ARG PROJECT
 
 COPY . /home/gradle/src
