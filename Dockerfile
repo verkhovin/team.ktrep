@@ -2,7 +2,7 @@ FROM gradle:4.7.0-jdk8-alpine AS build
 ARG PROJECT
 
 COPY . /home/gradle/src
-RUN chown -R 777 /home/gradle/
+RUN chown -R gradle:gradle /home/gradle/
 WORKDIR /home/gradle/src
 RUN ./gradlew ${PROJECT}:build --no-daemon
 
