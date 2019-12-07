@@ -1,10 +1,11 @@
 package kt.team.entity
 
-class UserContent(
-   val contentId: String,
-   val reaction: String? = null,
-   val isBookmarked: Boolean = false,
-   val isWatched: Boolean = false,
-   val score: Double
+import java.util.UUID
 
+data class UserContent(
+    val contentId: UUID,
+    val reaction: String? = null,
+    val isBookmarked: Boolean? = null,
+    val isWatched: Boolean? = null,
+    val score: Double
 )
