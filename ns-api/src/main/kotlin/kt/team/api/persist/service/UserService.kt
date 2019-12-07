@@ -1,10 +1,10 @@
-package persist.service
+package kt.team.api.persist.service
 
-import model.User
+import kt.team.api.model.User
 import org.jetbrains.exposed.sql.ResultRow
 import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.transactions.transaction
-import persist.model.UserTable
+import kt.team.api.persist.model.UserTable
 import java.util.UUID
 
 class UserService {

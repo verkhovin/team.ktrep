@@ -1,6 +1,8 @@
+package kt.team.api
+
 import com.fasterxml.jackson.databind.SerializationFeature
 import com.fasterxml.jackson.datatype.joda.JodaModule
-import configuration.api.configureApi
+import kt.team.api.configuration.api.configureApi
 import io.ktor.application.Application
 import io.ktor.application.install
 import io.ktor.features.CallLogging

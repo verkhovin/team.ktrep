@@ -1,4 +1,4 @@
-package configuration.properties
+package kt.team.api.configuration.properties
 
 data class JdbcProperties(
     val jdbcurl: String,

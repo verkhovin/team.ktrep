@@ -1,8 +1,7 @@
-package configuration.api
+package kt.team.api.configuration.api
 
 import io.ktor.application.Application
 import io.ktor.routing.routing
-import org.koin.ktor.ext.get
 
 fun Application.configureApi() {
     routing {

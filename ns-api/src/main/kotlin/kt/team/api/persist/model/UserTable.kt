@@ -1,10 +1,10 @@
-package persist.model
+package kt.team.api.persist.model
 
-import model.UserContent
-import model.KeyValue
+import kt.team.api.model.UserContent
+import kt.team.api.model.KeyValue
 import org.jetbrains.exposed.sql.Table
 import org.jetbrains.exposed.sql.datetime
-import persist.customtypes.jsonb
+import kt.team.api.persist.customtypes.jsonb
 
 object UserTable : Table("ns_user") {
     val id = uuid("id").primaryKey().autoGenerate()

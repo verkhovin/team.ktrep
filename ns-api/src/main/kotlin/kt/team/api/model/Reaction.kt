@@ -1,4 +1,4 @@
-package model
+package kt.team.api.model
 
 data class Reaction(
     val action: String,

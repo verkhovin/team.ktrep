@@ -1,8 +1,8 @@
-package configuration
+package kt.team.api.configuration
 
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
-import configuration.properties.JdbcProperties
+import kt.team.api.configuration.properties.JdbcProperties
 import org.jetbrains.exposed.sql.Database
 
 fun configurePersistence(properties: JdbcProperties) {

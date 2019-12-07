@@ -1,5 +1,3 @@
-package persist.customtypes
-
-import com.fasterxml.jackson.core.type.TypeReference
+package kt.team.api.persist.customtypes
 
 //inline fun <reified T: Any> typeRef() = object: TypeReference<T>() {}::class.java

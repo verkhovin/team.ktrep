@@ -1,6 +1,5 @@
-package persist.customtypes
+package kt.team.api.persist.customtypes
 
-import com.fasterxml.jackson.core.type.TypeReference
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.datatype.joda.JodaModule
 import org.jetbrains.exposed.sql.Column

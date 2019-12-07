@@ -1,11 +1,11 @@
-package configuration
+package kt.team.api.configuration
 
-import configuration.properties.JdbcProperties
+import kt.team.api.configuration.properties.JdbcProperties
 import org.koin.core.context.GlobalContext.get
 import org.koin.dsl.module
-import persist.service.ArticleService
-import persist.service.ContentService
-import persist.service.UserService
+import kt.team.api.persist.service.ArticleService
+import kt.team.api.persist.service.ContentService
+import kt.team.api.persist.service.UserService
 
 val nsApiModule = module {
     single { ArticleService() }

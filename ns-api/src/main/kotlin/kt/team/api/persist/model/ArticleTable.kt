@@ -1,4 +1,4 @@
-package persist.model
+package kt.team.api.persist.model
 
 import org.jetbrains.exposed.sql.Table
 import org.jetbrains.exposed.sql.date

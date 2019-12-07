@@ -1,4 +1,4 @@
-package configuration.api
+package kt.team.api.configuration.api
 
 import io.ktor.application.call
 import io.ktor.http.HttpStatusCode

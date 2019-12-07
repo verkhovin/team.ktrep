@@ -1,13 +1,12 @@
-package persist.service
+package kt.team.api.persist.service
 
-import model.Action
-import model.Item
-import model.Reaction
-import model.User
+import kt.team.api.model.Item
+import kt.team.api.model.Reaction
+import kt.team.api.model.User
 import org.jetbrains.exposed.sql.ResultRow
 import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.transactions.transaction
-import persist.model.ContentTable
+import kt.team.api.persist.model.ContentTable
 
 class ContentService {
 

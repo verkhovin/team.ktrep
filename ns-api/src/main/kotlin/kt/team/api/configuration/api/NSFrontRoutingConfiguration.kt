@@ -1,15 +1,15 @@
-package configuration.api
+package kt.team.api.configuration.api
 
 import io.ktor.application.call
 import io.ktor.http.HttpStatusCode
 import io.ktor.response.respond
 import io.ktor.routing.Routing
 import io.ktor.routing.get
-import model.Item
+import kt.team.api.model.Item
 import org.koin.ktor.ext.inject
-import persist.service.ArticleService
-import persist.service.ContentService
-import persist.service.UserService
+import kt.team.api.persist.service.ArticleService
+import kt.team.api.persist.service.ContentService
+import kt.team.api.persist.service.UserService
 import java.util.UUID
 
 fun Routing.configureFrontApi() {

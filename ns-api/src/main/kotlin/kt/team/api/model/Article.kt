@@ -1,4 +1,4 @@
-package model
+package kt.team.api.model
 
 import com.fasterxml.jackson.annotation.JsonFormat
 import org.joda.time.DateTime
