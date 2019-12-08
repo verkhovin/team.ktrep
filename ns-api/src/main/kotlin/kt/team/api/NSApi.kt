@@ -9,9 +9,11 @@ import io.ktor.features.CORS
 import io.ktor.features.CallLogging
 import io.ktor.features.ContentNegotiation
 import io.ktor.features.DefaultHeaders
+import io.ktor.http.HttpHeaders
 import io.ktor.jackson.jackson
 import io.ktor.server.engine.embeddedServer
 import io.ktor.server.netty.Netty
+import io.ktor.http.HttpMethod
 import kotlinx.coroutines.runBlocking
 import org.koin.core.KoinComponent
 import java.text.SimpleDateFormat
@@ -27,7 +29,12 @@ class NSApi : KoinComponent {
 
     fun Application.configureServer() {
         install(DefaultHeaders)
-        install(CORS)
+        install(CORS) {
+            method(HttpMethod.Options)
+            header(HttpHeaders.XForwardedProto)
+            anyHost()
+            allowNonSimpleContentTypes = true
+        }
         install(CallLogging) {
             level = org.slf4j.event.Level.DEBUG
         }
