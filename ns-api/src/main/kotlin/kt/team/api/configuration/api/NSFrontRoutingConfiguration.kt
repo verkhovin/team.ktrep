@@ -5,7 +5,6 @@ import io.ktor.http.HttpStatusCode
 import io.ktor.response.respond
 import io.ktor.routing.Routing
 import io.ktor.routing.get
-import kt.team.api.model.Item
 import org.koin.ktor.ext.inject
 import kt.team.api.persist.service.ArticleService
 import kt.team.api.persist.service.ContentService
