@@ -5,6 +5,7 @@ import io.r2dbc.postgresql.PostgresqlConnectionFactory
 import io.r2dbc.postgresql.codec.Json
 import kotlinx.coroutines.reactive.asFlow
 import kt.team.config.Settings
+import kt.team.dao.extention.closeConnection
 import kt.team.dao.extention.parseJsonSafetely
 import kt.team.entity.User
 import reactor.core.publisher.Mono
@@ -33,7 +34,7 @@ class PgUserDao(
                             )
                         }
                     }
-                    .doFinally { conn.close().subscribe() }
+                    .doFinally { conn.closeConnection() }
             }
             .flatMapMany { it }
             .flatMap { it }
@@ -47,7 +48,7 @@ class PgUserDao(
                     .bind("$1", Json.of(objectMapper.writeValueAsString(user.contents)))
                     .bind("$2", user.id)
                     .execute()
-                    .doFinally { conn.close().subscribe() }
+                    .doFinally { conn.closeConnection() }
             }
             .flatMapMany { it }
             .asFlow()
