@@ -14,12 +14,16 @@ import java.util.UUID
 
 class ContentService {
 
-    fun fetchUserContent(user: User): List<Item> = user.content.map { content ->
-        ContentTable.select {
-            (ContentTable.id eq content.contentId)
-        }.mapNotNull { toItem(it, content.score, content.reaction, content.isBookmarked) }
-            .singleOrNull()
-            ?: throw RuntimeException("Content ${content.contentId} not found!")
+    fun fetchUserContent(user: User): List<Item> = transaction {
+        val result = user.content.map { content ->
+            ContentTable.select {
+                (ContentTable.id eq content.contentId)
+            }.mapNotNull { toItem(it, content.score, content.reaction, content.isBookmarked) }
+                .singleOrNull()
+                ?: throw RuntimeException("Content ${content.contentId} not found!")
+        }
+        commit()
+        result
     }
 
     fun fetchRelevantContent(contentId: UUID): List<Item> {
@@ -33,6 +37,7 @@ class ContentService {
                 toItem(it)
             }.singleOrNull()
                 ?: throw RuntimeException("Content $contentId not found!")
+            commit()
         }
         return listOf(first) + getByTag(tags)
     }
