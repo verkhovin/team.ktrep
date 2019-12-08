@@ -4,8 +4,8 @@ import java.util.UUID
 
 data class UserContent(
     val contentId: UUID,
-    val reaction: String? = null,
-    val isBookmarked: Boolean? = null,
-    val isWatched: Boolean? = null,
+    val reaction: String = "",
+    val isBookmarked: Boolean = false,
+    val isWatched: Boolean = false,
     val score: Double
 )
