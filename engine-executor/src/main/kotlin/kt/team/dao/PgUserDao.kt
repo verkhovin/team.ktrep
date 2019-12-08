@@ -23,7 +23,7 @@ class PgUserDao(private val connectionFactory: ConnectionFactory) : UserDao {
         .map { conn ->
             conn.createStatement("select * from NS_USER")
                 .execute()
-                .flatMap {
+                .map {
                     it.map { row, _ ->
                         User(
                             id = row["id"] as UUID,
@@ -32,9 +32,10 @@ class PgUserDao(private val connectionFactory: ConnectionFactory) : UserDao {
                         )
                     }
                 }
-                .doFinally { conn.close() }
+                .doFinally { conn.close().subscribe() }
         }
         .flatMapMany { it }
+        .flatMap { it }
         .asFlow()
 
 
@@ -46,7 +47,7 @@ class PgUserDao(private val connectionFactory: ConnectionFactory) : UserDao {
                     .bind("$1", Json.of(objectMapper.writeValueAsString(user.contents)))
                     .bind("$2", user.id)
                     .execute()
-                    .doFinally { conn.close() }
+                    .doFinally { conn.close().subscribe() }
             }
             .flatMapMany { it }
             .asFlow()

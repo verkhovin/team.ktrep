@@ -18,7 +18,7 @@ class PgContentDao(private val connectionFactory: ConnectionFactory) : ContentDa
             .map { conn ->
                 conn.createStatement("select * from CONTENT")
                     .execute()
-                    .flatMap {
+                    .map {
                         it.map { row, _ ->
                             Content(
                                 id = row["id"] as UUID,
@@ -28,8 +28,9 @@ class PgContentDao(private val connectionFactory: ConnectionFactory) : ContentDa
                             )
                         }
                     }
-                    .doFinally { conn.close() }
+                    .doFinally { conn.close().subscribe() }
             }
             .flatMapMany { it }
+            .flatMap { it }
             .asFlow()
 }
