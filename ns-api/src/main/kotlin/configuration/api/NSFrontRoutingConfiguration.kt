@@ -5,7 +5,6 @@ import io.ktor.http.HttpStatusCode
 import io.ktor.response.respond
 import io.ktor.routing.Routing
 import io.ktor.routing.get
-import model.Item
 import org.koin.ktor.ext.inject
 import persist.service.ArticleService
 import persist.service.ContentService
@@ -24,9 +23,9 @@ fun Routing.configureFrontApi() {
         call.respond(HttpStatusCode.OK, response)
     }
 
-    get("/content/feed/{userId}/{tileId}") {
-        //TODO: get data from database
-        val response = emptyList<Item>()
+    get("/content/feed/{tileId}") {
+        val tileId = UUID.fromString(call.parameters["tileId"].orEmpty())
+        val response = contentService.fetchRelevantContent(tileId)
         call.respond(HttpStatusCode.OK, response)
     }
 

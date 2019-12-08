@@ -1,11 +1,13 @@
 package model
 
+import com.fasterxml.jackson.annotation.JsonFormat
 import org.joda.time.DateTime
 
 data class Item(
     val id: String,
     val type: String,
     val score: Double,
+    @JsonFormat(pattern = "yyyy-MM-dd")
     val created: DateTime,
     val reaction: Reaction,
     val body: Body
