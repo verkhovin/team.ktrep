@@ -20,7 +20,7 @@ class Executor : KoinComponent {
                 println(error)
                 log.error(error)
             }
-            delay(5000L)
+            delay(50L)
         }
     }
 }

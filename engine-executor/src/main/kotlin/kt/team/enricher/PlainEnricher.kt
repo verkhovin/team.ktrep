@@ -8,8 +8,6 @@ import kotlinx.coroutines.flow.toList
 import kt.team.dao.ContentDao
 import kt.team.dao.UserDao
 import kt.team.enricher.calculator.calcImportant
-import kt.team.entity.Content
-import kt.team.entity.User
 import kt.team.entity.UserContent
 
 class PlainEnricher(
@@ -26,10 +24,10 @@ class PlainEnricher(
                 async {
                     userDao.updateUserContentCorr(
                         user.also {
-                            it.contents = contentList.map {
+                            it.contents = contentList.map {content ->
                                 UserContent(
-                                    user.id,
-                                    score = user.calcImportant(it)
+                                    content.id,
+                                    score = user.calcImportant(content)
                                 )
                             }
                         }
