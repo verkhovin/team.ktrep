@@ -1,7 +1,6 @@
 package kt.team.dao
 
 import io.r2dbc.postgresql.PostgresqlConnectionFactory
-import io.r2dbc.spi.ConnectionFactory
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.reactive.asFlow
 import kt.team.config.Settings
@@ -11,13 +10,14 @@ import reactor.core.publisher.Mono
 import java.util.UUID
 
 class PgContentDao(
-    private val connectionFactory: ConnectionFactory,
+    private val connectionFactory: PostgresqlConnectionFactory,
     private val settings: Settings
 ) : ContentDao {
 
     @Suppress("EXPERIMENTAL_API_USAGE")
     override suspend fun findContentList(): Flow<Content> =
-        Mono.from((connectionFactory as PostgresqlConnectionFactory)
+        Mono.from(
+            connectionFactory
             .create())
             .map { conn ->
                 conn.createStatement("select * from CONTENT order by CREATED desc limit $1")

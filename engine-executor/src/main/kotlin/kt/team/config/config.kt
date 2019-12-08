@@ -1,8 +1,7 @@
 package kt.team.config
 
-import io.r2dbc.pool.PoolingConnectionFactoryProvider
-import io.r2dbc.spi.ConnectionFactories
-import io.r2dbc.spi.ConnectionFactoryOptions
+import io.r2dbc.postgresql.PostgresqlConnectionConfiguration
+import io.r2dbc.postgresql.PostgresqlConnectionFactory
 import kt.team.dao.PgContentDao
 import kt.team.dao.PgUserDao
 import kt.team.enricher.PlainEnricher
@@ -14,15 +13,15 @@ fun Module.configureProps(){
 }
 
 fun Module.configurePgDao() {
-    single { ConnectionFactories.get(ConnectionFactoryOptions.builder()
-        .option(ConnectionFactoryOptions.DRIVER, "postgresql")
-        .option(ConnectionFactoryOptions.HOST, "134.209.82.145")
-        .option(ConnectionFactoryOptions.PORT, 5432)
-        .option(ConnectionFactoryOptions.USER, "teamkt")
-        .option(ConnectionFactoryOptions.PASSWORD, "supersecurepassword")
-        .option(ConnectionFactoryOptions.DATABASE, "teamkt")
-        .option(PoolingConnectionFactoryProvider.MAX_SIZE, 10)
-        .build()) }
+    single {
+         PostgresqlConnectionFactory(PostgresqlConnectionConfiguration.builder()
+            .host("134.209.82.145")
+            .port(5432)  // optional, defaults to 5432
+            .username("teamkt")
+            .password("supersecurepassword")
+            .database("teamkt")  // optional
+            .build());
+    }
     single { PgContentDao(get(), get()) }
     single { PgUserDao(get(), get()) }
 }
