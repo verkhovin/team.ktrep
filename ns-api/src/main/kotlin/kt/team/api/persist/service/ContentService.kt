@@ -39,13 +39,14 @@ class ContentService {
                 ?: throw RuntimeException("Content $contentId not found!")
             commit()
         }
-        return listOf(first) + getByTag(tags)
+        return listOf(first) + getByTag(first.id, tags)
     }
 
-    fun getByTag(tags: Array<String>?): List<Item> = try {
+    fun getByTag(firstId: String, tags: Array<String>?): List<Item> = try {
         if (!tags.isNullOrEmpty()) {
-            val query = "select * from content" +
+            val query = "select distinct * from content" +
                 " where jsonb_exists_any(tags::jsonb, array ['${tags.joinToString("','")}'])" +
+                " and id <> '$firstId'" +
                 " limit 20;"
             val results = mutableListOf<Item>()
             TransactionManager.currentOrNew(2).exec(query) { rs ->
