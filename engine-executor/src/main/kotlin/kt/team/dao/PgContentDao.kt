@@ -4,6 +4,7 @@ import io.r2dbc.postgresql.PostgresqlConnectionFactory
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.reactive.asFlow
 import kt.team.config.Settings
+import kt.team.dao.extention.closeConnection
 import kt.team.dao.extention.parseJsonSafetely
 import kt.team.entity.Content
 import reactor.core.publisher.Mono
@@ -33,7 +34,7 @@ class PgContentDao(
                             )
                         }
                     }
-                    .doFinally { conn.close().subscribe() }
+                    .doFinally { conn.closeConnection() }
             }
             .flatMapMany { it }
             .flatMap { it }
