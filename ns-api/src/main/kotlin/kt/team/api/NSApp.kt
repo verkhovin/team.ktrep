@@ -1,6 +1,5 @@
 package kt.team.api
 
-import kt.team.api.NSApi
 import kt.team.api.configuration.nsApiModule
 import org.koin.core.context.startKoin
 
