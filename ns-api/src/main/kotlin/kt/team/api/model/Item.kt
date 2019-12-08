@@ -16,7 +16,7 @@ data class Item(
         val text: String,
         val image: String,
         val videoUrl: String,
-        val articleId: String
+        val articleId: String?
     )
 
     fun toTile() = Tile(
