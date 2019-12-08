@@ -5,8 +5,10 @@ import com.fasterxml.jackson.datatype.joda.JodaModule
 import kt.team.api.configuration.api.configureApi
 import io.ktor.application.Application
 import io.ktor.application.install
+import io.ktor.features.CORS
 import io.ktor.features.CallLogging
 import io.ktor.features.ContentNegotiation
+import io.ktor.features.DefaultHeaders
 import io.ktor.jackson.jackson
 import io.ktor.server.engine.embeddedServer
 import io.ktor.server.netty.Netty
@@ -24,6 +26,8 @@ class NSApi : KoinComponent {
     }
 
     fun Application.configureServer() {
+        install(DefaultHeaders)
+        install(CORS)
         install(CallLogging) {
             level = org.slf4j.event.Level.DEBUG
         }
