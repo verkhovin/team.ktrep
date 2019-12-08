@@ -9,6 +9,10 @@ import kt.team.enricher.PlainEnricher
 import org.koin.core.module.Module
 import org.koin.dsl.module
 
+fun Module.configureProps(){
+    single { Settings() }
+}
+
 fun Module.configurePgDao() {
     single { ConnectionFactories.get(ConnectionFactoryOptions.builder()
         .option(ConnectionFactoryOptions.DRIVER, "postgresql")
@@ -19,8 +23,8 @@ fun Module.configurePgDao() {
         .option(ConnectionFactoryOptions.DATABASE, "teamkt")
         .option(PoolingConnectionFactoryProvider.MAX_SIZE, 10)
         .build()) }
-    single { PgContentDao(get()) }
-    single { PgUserDao(get()) }
+    single { PgContentDao(get(), get()) }
+    single { PgUserDao(get(), get()) }
 }
 
 fun Module.configureEnricher() {
@@ -28,6 +32,7 @@ fun Module.configureEnricher() {
 }
 
 val appModules = module {
+    configureProps()
     configurePgDao()
     configureEnricher()
 }

@@ -4,9 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import io.r2dbc.postgresql.PostgresqlConnectionFactory
 import io.r2dbc.postgresql.codec.Json
 import io.r2dbc.spi.ConnectionFactory
-import kotlinx.coroutines.flow.flatMapConcat
 import kotlinx.coroutines.reactive.asFlow
-import kotlinx.coroutines.reactor.asFlux
+import kt.team.config.Settings
 import kt.team.dao.extention.parseJsonSafetely
 import kt.team.entity.User
 import reactor.core.publisher.Mono
@@ -14,14 +13,18 @@ import java.util.UUID
 
 private val objectMapper = ObjectMapper()
 
-class PgUserDao(private val connectionFactory: ConnectionFactory) : UserDao {
+class PgUserDao(
+    private val connectionFactory: ConnectionFactory,
+    private val settings: Settings
+) : UserDao {
 
     @Suppress("EXPERIMENTAL_API_USAGE")
     override suspend fun getUsers() =
         Mono.from((connectionFactory as PostgresqlConnectionFactory)
         .create())
         .map { conn ->
-            conn.createStatement("select * from NS_USER")
+            conn.createStatement("select * from NS_USER order by LAST_LOGIN desc limit $1")
+                .bind("$1", settings.usersLimitCount)
                 .execute()
                 .map {
                     it.map { row, _ ->
