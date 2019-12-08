@@ -4,13 +4,13 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import java.util.UUID
 
 data class UserContent(
-    @JsonProperty("content_id")
+    @JsonProperty("contentId")
     val contentId: UUID,
     @JsonProperty("reaction")
     val reaction: String,
-    @JsonProperty("isBookmarked")
+    @JsonProperty("bookmarked")
     val isBookmarked: Boolean,
-    @JsonProperty("isWatched")
+    @JsonProperty("watched")
     val isWatched: Boolean,
     @JsonProperty("score")
     val score: Double

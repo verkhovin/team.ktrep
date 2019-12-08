@@ -19,8 +19,6 @@ class ArticleService {
         result
     }
 
-    fun save(article: Article) {}
-
     private fun toArticle(row: ResultRow) = Article(
         id = row[ArticleTable.id].toString(),
         created = row[ArticleTable.created],

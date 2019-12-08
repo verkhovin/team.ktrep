@@ -20,8 +20,6 @@ class UserService {
         result
     }
 
-    fun updateUser(user: User) {}
-
     fun toUser(row: ResultRow) = User(
         id = row[UserTable.id].toString(),
         lastLogin = row[UserTable.lastLogin],
