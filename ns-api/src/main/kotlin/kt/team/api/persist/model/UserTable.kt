@@ -13,6 +13,6 @@ object UserTable : Table("ns_user") {
     val gender = varchar("gender", 1)
     val location = text("location")
     val products = jsonb("products", Array<String>::class.java)
-    val tags = jsonb("tags", Array<KeyValue>::class.java)
+    val tags = jsonb("tags", Array<String>::class.java)
     val content = jsonb("content", Array<UserContent>::class.java)
 }

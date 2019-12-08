@@ -45,7 +45,7 @@ paths:
       responses:
         '200':
           description: product added
-  /user/{userId}/product/{tagName}:
+  /user/{userId}/tag/{tagName}:
     post:
       parameters:
         - name: userId

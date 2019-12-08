@@ -9,6 +9,6 @@ data class User (
     val gender: String,
     val location: String,
     val product: Array<String> = emptyArray(),
-    val tags: Array<KeyValue> = emptyArray(),
+    val tags: Array<String> = emptyArray(),
     val content: Array<UserContent> = emptyArray()
 )
