@@ -9,7 +9,7 @@ import io.ktor.routing.get
 import io.ktor.routing.post
 
 fun Routing.configureInputApi() {
-    post("input-api") {
+    post("/api/input-api") {
         val data = call.receive<Data>()
         call.respond(HttpStatusCode.OK, data)
     }

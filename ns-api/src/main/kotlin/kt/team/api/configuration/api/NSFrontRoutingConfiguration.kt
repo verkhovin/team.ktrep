@@ -17,20 +17,20 @@ fun Routing.configureFrontApi() {
     val userService by inject<UserService>()
     val contentService by inject<ContentService>()
 
-    get("/content/preview/{userId}") {
+    get("/api/content/preview/{userId}") {
         val id = UUID.fromString(call.parameters["userId"].orEmpty())
         val user = userService.getUsersById(id)
         val response = contentService.fetchUserContent(user).map { it.toTile() }
         call.respond(HttpStatusCode.OK, response)
     }
 
-    get("/content/feed/{tileId}") {
+    get("/api/content/feed/{tileId}") {
         val tileId = UUID.fromString(call.parameters["tileId"].orEmpty())
         val response = contentService.fetchRelevantContent(tileId)
         call.respond(HttpStatusCode.OK, response)
     }
 
-    get("/content/article/{articleId}") {
+    get("/api/content/article/{articleId}") {
         val id = UUID.fromString(call.parameters["articleId"].orEmpty())
         val response = articleService.getArticle(id)
         call.respond(HttpStatusCode.OK, response)
