@@ -27,7 +27,7 @@ class PlainEnricher(
                             it.contents = contentList.map {content ->
                                 UserContent(
                                     content.id,
-                                    score = user.calcImportant(content)
+                                    score = it.calcImportant(content)
                                 )
                             }
                         }
